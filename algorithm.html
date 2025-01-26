@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アルゴリズムアニメーション</title>
+
+    <style>
+        li{
+            list-style: none;
+        }
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+            position: absolute;
+            border: solid 1px black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+    </style>
+</head>
+<body>
+    <main>
+        <button id="next-btn">next</button>
+        <button id="swap-btn">Swap Boxes</button>
+        <button id="reset-btn">Reset Boxes</button>
+
+        <div id="boxes-wrapper"></div>
+
+        <!-- <ul>
+            <li><a href="bubble.html">バブルソート</a></li>
+            <li><a href="index.html">クイックソート</a></li>
+            <li><a href="index.html">マージソート</a></li>
+            <li><a href="index.html">選択ソート</a></li>
+            <li><a href="index.html">挿入ソート</a></li>
+            <li><a href="index.html">ヒープソート</a></li>
+        </ul> -->
+        
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
+    <script type="module" src="./index.js"></script>
+</body>
+</html>
