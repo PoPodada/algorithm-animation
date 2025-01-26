@@ -1,70 +1,32 @@
+import { quickSort } from "./js/sort.js";
+import { boxSwap, resetBoxes } from "./js/box.js";
+
+let inputData = [9, 10, 6, 7, 8, 4, 3];
+const boxList = [];
+
 const boxesWrapper = document.getElementById("boxes-wrapper");
-const boxNum = 5;
-const boxList = []; // ボックス情報を格納するリスト
-let hasSwapped = false; // 入れ替え済みかどうかを記録
-let hasReset = false; // リセット済みかどうかを記録
 
-// ボックスを生成して配置
-for (let i = 0; i < boxNum; i++) {
-  const box = document.createElement("div");
-  box.id = `box-${i}`;
-  box.className = "box";
-  box.textContent = i + 1;
-  boxesWrapper.appendChild(box);
-
-  // 初期位置を設定
+//入力されたデータをリストに追加
+for (let i = 0; i < inputData.length; i++) {
   const x = i * 150;
   const y = 100;
   gsap.set(box, { x, y });
-
-  // ボックス情報をリストに格納
-  boxList.push({ element: box, x, y });
+  boxList.push({ num: a[i], x, y });
 }
 
-// ボックスを入れ替える関数
-const boxSwap = (index1, index2) => {
-  if (hasSwapped) return; // 既に入れ替え済みなら何もしない
-  hasSwapped = true;
-  hasReset = false;
+//boxListからボックスを描画
+for (let i = 0; i < boxList.length; i++) {
+  const box = document.createElement("div");
+  box.id = `box-${i}`;
+  box.className = "box";
+  box.textContent = boxList[i].num;
+  boxesWrapper.appendChild(box);
+}
 
-  const box1 = boxList[index1];
-  const box2 = boxList[index2];
+// document.getElementById("swap-btn").addEventListener("click", () => {
+//   boxSwap(0, 1);
+// });
 
-  // アニメーションで位置を入れ替え
-  gsap.to(box1.element, { x: box2.x, y: box2.y, duration: 1 });
-  gsap.to(box2.element, { x: box1.x, y: box1.y, duration: 1 });
-
-  // 座標を入れ替える
-  const tempX = box1.x;
-  const tempY = box1.y;
-  box1.x = box2.x;
-  box1.y = box2.y;
-  box2.x = tempX;
-  box2.y = tempY;
-};
-
-// 初期状態に戻す関数
-const resetBoxes = () => {
-  if (!hasSwapped || hasReset) return; // 入れ替えが行われていない、またはリセット済みの場合は何もしない
-  hasReset = true;
-
-  boxList.forEach((box, index) => {
-    const initialX = index * 150;
-    const initialY = 100;
-    gsap.to(box.element, { x: initialX, y: initialY, duration: 1 });
-
-    // 座標を初期状態に戻す
-    box.x = initialX;
-    box.y = initialY;
-  });
-
-  hasSwapped = false; // リセット後に再度入れ替えを可能にする
-};
-
-// スワップボタンのクリックイベント
-document.getElementById("swap-btn").addEventListener("click", () => {
-  boxSwap(0, 1); // 例: 0番目と1番目のボックスを入れ替える
-});
-
-// リセットボタンのクリックイベント
-document.getElementById("reset-btn").addEventListener("click", ()=>resetBoxes());
+// document
+//   .getElementById("reset-btn")
+//   .addEventListener("click", () => resetBoxes());
