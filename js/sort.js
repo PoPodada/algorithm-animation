@@ -4,7 +4,7 @@ export const quickSort = (list, startId, endId) => {
   let pivot = list[Math.floor((startId + endId) / 2)];
   let left = startId;
   let right = endId;
-  let tempList = list
+  let tempList = list.concat()
 
   while (true) {
     while (list[left]< pivot) {
@@ -26,7 +26,9 @@ export const quickSort = (list, startId, endId) => {
     left++;
     right--;
 
-    let a,b = findDifferencesList(tempList, list)
+    let a = findDifferencesList(tempList, list)
+    console.log(a)
+    tempList = list.concat()
     // 入れ替えた後
     console.log(list);
   }
