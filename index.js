@@ -2,33 +2,40 @@ import { quickSort } from "./js/sort.js";
 import { boxSwap, resetBoxes } from "./js/box.js";
 
 let inputData = [9, 10, 6, 7, 8, 4, 3];
-const boxList = [];
+const boxObjectList = [];
 
 const boxesWrapper = document.getElementById("boxes-wrapper");
 //入力されたデータをリストに追加
 for (let i = 0; i < inputData.length; i++) {
   const x = i * 150;
   const y = 100;
-  boxList.push({ num: inputData[i], x, y });
+  boxObjectList.push({ num: inputData[i], x, y });
 }
 
-//boxListからボックスを描画
-for (let i = 0; i < boxList.length; i++) {
+//boxObjectListからボックスを描画
+for (let i = 0; i < boxObjectList.length; i++) {
   const box = document.createElement("div");
   box.id = `box-${i}`;
   box.className = "box";
-  box.textContent = boxList[i].num;
+  box.textContent = boxObjectList[i].num;
   boxesWrapper.appendChild(box);
-  boxList[i].element = box;
-  gsap.set(box, { x: boxList[i].x, y: boxList[i].y }); 
+  boxObjectList[i].element = box;
+  gsap.set(box, { x: boxObjectList[i].x, y: boxObjectList[i].y });
 }
-//boxListに変えたほうがいい
-console.log(inputData)
-quickSort(inputData, 0, boxList.length -1)
 
-// document.getElementById("swap-btn").addEventListener("click", () => {
-//   boxSwap(0, 1);
-// });
+const differencesList = quickSort(inputData, 0, boxObjectList.length - 1);
+
+let step = 0;
+
+document.getElementById("next-btn").addEventListener("click", () => {
+  if (step < differencesList.length) {
+    step++;
+  }
+});
+
+document.getElementById("swap-btn").addEventListener("click", () => {
+  boxSwap(boxObjectList, differencesList[step][0], differencesList[step][1]);
+});
 
 // document
 //   .getElementById("reset-btn")

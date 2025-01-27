@@ -1,10 +1,11 @@
 import { findDifferencesList } from './list.js';
-
+let calculationSteps = []
 export const quickSort = (list, startId, endId) => {
   let pivot = list[Math.floor((startId + endId) / 2)];
   let left = startId;
   let right = endId;
   let tempList = list.concat()
+  
 
   while (true) {
     while (list[left]< pivot) {
@@ -26,11 +27,9 @@ export const quickSort = (list, startId, endId) => {
     left++;
     right--;
 
-    let a = findDifferencesList(tempList, list)
-    console.log(a)
+    let listDifference = findDifferencesList(tempList, list)
+    calculationSteps.push(listDifference)
     tempList = list.concat()
-    // 入れ替えた後
-    console.log(list);
   }
 
   if (startId < left - 1) {
@@ -39,4 +38,5 @@ export const quickSort = (list, startId, endId) => {
   if (right + 1 < endId) {
     quickSort(list, right + 1, endId);
   }
+  return calculationSteps;
 };

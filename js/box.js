@@ -1,9 +1,7 @@
 // ボックスを入れ替える関数
 export const boxSwap = (boxList,index1, index2) => {
-    // if (hasSwapped) return; // 既に入れ替え済みなら何もしない
-    // hasSwapped = true;
-    // hasReset = false;
-  
+  console.log(boxList)
+
     const box1 = boxList[index1];
     const box2 = boxList[index2];
   
@@ -18,6 +16,10 @@ export const boxSwap = (boxList,index1, index2) => {
     box1.y = box2.y;
     box2.x = tempX;
     box2.y = tempY;
+
+    let boxTemp = boxList[index1]
+    boxList[index1] = boxList[index2]
+    boxList[index2] = boxTemp
   };
 
 // 初期状態に戻す関数
