@@ -5,13 +5,11 @@ let inputData = [9, 10, 6, 7, 8, 4, 3];
 const boxList = [];
 
 const boxesWrapper = document.getElementById("boxes-wrapper");
-
 //入力されたデータをリストに追加
 for (let i = 0; i < inputData.length; i++) {
   const x = i * 150;
   const y = 100;
-  gsap.set(box, { x, y });
-  boxList.push({ num: a[i], x, y });
+  boxList.push({ num: inputData[i], x, y });
 }
 
 //boxListからボックスを描画
@@ -21,7 +19,12 @@ for (let i = 0; i < boxList.length; i++) {
   box.className = "box";
   box.textContent = boxList[i].num;
   boxesWrapper.appendChild(box);
+  boxList[i].element = box;
+  gsap.set(box, { x: boxList[i].x, y: boxList[i].y }); 
 }
+//boxListに変えたほうがいい
+console.log(inputData)
+quickSort(inputData, 0, boxList.length -1)
 
 // document.getElementById("swap-btn").addEventListener("click", () => {
 //   boxSwap(0, 1);
