@@ -1,42 +1,35 @@
 import { findDifferencesList } from './list.js';
-let calculationSteps = []
+
+
 export const quickSort = (list, startId, endId) => {
-  let pivot = list[Math.floor((startId + endId) / 2)];
-  let left = startId;
-  let right = endId;
-  let tempList = list.concat()
-  
+  const calculationSteps = [];
+  const sort = (list, startId, endId) => {
+    const pivotIndex = Math.floor((startId + endId) / 2);
+    const pivot = list[pivotIndex];
+    let left = startId;
+    let right = endId;
 
-  while (true) {
-    while (list[left]< pivot) {
-      left++;
+    while (left <= right) {
+      while (list[left] < pivot) left++;
+      while (list[right] > pivot) right--;
+
+      if (left <= right) {
+        [list[left], list[right]] = [list[right], list[left]];
+        calculationSteps.push({
+          listDifference: [left, right],
+          pivotIndex,
+          pivotValue: pivot,
+        });
+        left++;
+        right--;
+      }
     }
 
-    while (pivot < list[right]) {
-      right--;
-    }
+    if (startId < right) sort(list, startId, right);
+    if (left < endId) sort(list, left, endId);
+  };
 
-    if (right <= left) {
-      break;
-    }
-    
-    let tmp = list[left];
-    list[left] = list[right];
-    list[right] = tmp;
-
-    left++;
-    right--;
-
-    let listDifference = findDifferencesList(tempList, list)
-    calculationSteps.push(listDifference)
-    tempList = list.concat()
-  }
-
-  if (startId < left - 1) {
-    quickSort(list, startId, left - 1);
-  }
-  if (right + 1 < endId) {
-    quickSort(list, right + 1, endId);
-  }
+  sort(list, startId, endId);
+  console.log(calculationSteps)
   return calculationSteps;
 };

@@ -1,10 +1,18 @@
+export const highlightBoxes = (indices, color) => {
+  indices.forEach(index => {
+    const box = document.getElementById(`box-${index}`);
+    if (box) box.style.backgroundColor = color;
+  });
+};
+
 // ボックスを入れ替える関数
 export const boxSwap = (boxList,index1, index2) => {
-  console.log(boxList)
+  console.log(boxList,index1,index2)
 
     const box1 = boxList[index1];
     const box2 = boxList[index2];
   
+    console.log(box1,box2)
     // アニメーションで位置を入れ替え
     gsap.to(box1.element, { x: box2.x, y: box2.y, duration: 1 });
     gsap.to(box2.element, { x: box1.x, y: box1.y, duration: 1 });
@@ -20,6 +28,8 @@ export const boxSwap = (boxList,index1, index2) => {
     let boxTemp = boxList[index1]
     boxList[index1] = boxList[index2]
     boxList[index2] = boxTemp
+
+    
   };
 
 // 初期状態に戻す関数
@@ -39,3 +49,8 @@ export const resetBoxes = () => {
   
     hasSwapped = false; // リセット後に再度入れ替えを可能にする
   };
+
+export const createArrowElement = (id) => {
+  const arrow = document.createElement("span")
+  const box = document.getElementById()
+}
