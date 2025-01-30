@@ -1,7 +1,4 @@
-import { findDifferencesList } from './list.js';
-
-
-export const quickSort = (list, startId, endId) => {
+const quickSort = (list, startId, endId) => {
   const calculationSteps = [];
   const sort = (list, startId, endId) => {
     const pivotIndex = Math.floor((startId + endId) / 2);

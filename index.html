@@ -1,27 +1,215 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>アルゴリズムアニメーション</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>アルゴリズムアニメーション</title>
 
-    <style>
-        main {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
+	<style>
+		/* 共通部分 */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			list-style: none;
+			text-decoration: none;
+
+		}
+
+		body {
+			display: flex;
+			width: 100%;
+		}
+
+		li {
+			list-style: none;
+		}
+
+		a {
+			text-decoration: none;
+			color: black;
+		}
+
+		button {
+			min-width: 150px;
+			height: 50px;
+			border-radius: 10px;
+			padding: 10px 30px;
+			margin-bottom: 10px;
+		}
+
+		input {
+			margin-bottom: 10px;
+		}
+
+		.active-btn {
+			background-color: #1cb0f6;
+			color: white;
+			transition: .3s;
+
+			border: solid 2px rgb(24, 153, 214);
+			color: #191970;
+			padding: 10px 30px;
+			box-shadow: 0 3px 0 rgb(24, 153, 214);
+		}
+
+		.active-btn:hover {
+			transform: translateY(5px);
+			box-shadow: 0 0 0 #191970;
+		}
+
+		.disable-btn {
+			background-color: #f0f0f0;
+			color: #c0c0c0;
+			border: solid 2px #c0c0c0;
+			padding: 10px 30px;
+		}
+
+		.side-bar {
+			min-width: 250px;
+			height: 100vh;
+			border-right: 2px solid rgb(245, 243, 243);
+			margin-right: 10px;
+		}
+
+		.side-bar ul {
+			margin-top: 30px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.side-bar ul li {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-bottom: 20px;
+			border-radius: 10px;
+			font-weight: bold;
+			border: 2px solid white;
+		}
+
+		.side-bar ul li a {
+			color: gray;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 210px;
+			height: 50px;
+		}
+
+		.side-bar ul li:hover {
+			background-color: rgb(245, 243, 243);
+		}
+
+		.side-bar ul .highlight {
+			background-color: rgb(221, 244, 255);
+			border: 2px solid rgb(132, 216, 255);
+		}
+
+		.side-bar ul .highlight a {
+			color: rgb(28, 176, 246);
+
+		}
+
+		main {
+			margin-top: 30px;
+			max-width: 900px;
+			position: relative;
+			display: flex;
+			flex-direction: column;
+		}
 
 
+		/* ソート */
+		#boxes-wrapper {
+			height: 400px;
+		}
 
-    </style>
+		.box {
+			width: 70px;
+			height: 70px;
+			background-color: lightblue;
+			position: absolute;
+			border: solid 1px black;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.dli-arrow-down {
+			display: inline-block;
+			vertical-align: middle;
+			color: #333;
+			line-height: 1;
+			position: absolute;
+			width: 0.1em;
+			height: 1em;
+			background: currentColor;
+			top: -50px;
+		}
+
+		.dli-arrow-down::before {
+			content: "";
+			width: 0.65em;
+			height: 0.65em;
+			border: 0.1em solid currentColor;
+			border-top: 0;
+			border-right: 0;
+			transform: rotate(-45deg);
+			transform-origin: bottom left;
+			position: absolute;
+			left: 50%;
+			bottom: -0.05em;
+			box-sizing: border-box;
+		}
+
+		.dli-arrow-down-text {
+			position: absolute;
+			top: -70px;
+		}
+
+		.text {
+			color: blue;
+		}
+	</style>
 </head>
+
 <body>
-    <main>
-        <p>このアプリを使うことによって文章での理解が難しいようなソートアルゴリズムの理解を深めることができます。</p> 
-        <a href="algorithm.html" class="btn">アルゴリズムを見る</a>
-    </main>
+	<div class="side-bar">
+		<ul>
+			<li><a href="index.html">トップページ</a></li>
+			<li><a href="algorithm.html">クイックソート</a></li>
+			<li><a href="#">マージソート</a></li>
+			<li><a href="#">バブルソート</a></li>
+			<li><a href="#">選択ソート</a></li>
+			<li><a href="#">挿入ソート</a></li>
+			<li><a href="#">ヒープソート</a></li>
+		</ul>
+	</div>
+	<main>
+		<p>このアプリを使うことによって文章での理解が難しいようなソートアルゴリズムの理解を深めることができます。</p>
+		<a href="algorithm.html" class="btn text">アルゴリズムを見る</a>
+	</main>
+	<script>
+
+		window.addEventListener("load", () => {
+			const currentPath = window.location.pathname.split("/");
+
+			const items = document.querySelectorAll(".side-bar ul li");
+
+			items.forEach((item) => {
+				const link = item.querySelector("a").href.split("/");
+
+				if (link[link.length - 1] === currentPath[currentPath.length - 1]) {
+					item.classList.add("highlight");
+
+				}
+			});
+		});
+
+	</script>
 </body>
+
 </html>
