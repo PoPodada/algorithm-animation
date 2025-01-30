@@ -7,7 +7,6 @@ export const highlightBoxes = (indices, color) => {
 
 // ボックスを入れ替える関数
 export const boxSwap = (boxList,index1, index2) => {
-  console.log(boxList,index1,index2)
 
     const box1 = boxList[index1];
     const box2 = boxList[index2];
@@ -33,24 +32,28 @@ export const boxSwap = (boxList,index1, index2) => {
   };
 
 // 初期状態に戻す関数
-export const resetBoxes = () => {
-    if (!hasSwapped || hasReset) return; // 入れ替えが行われていない、またはリセット済みの場合は何もしない
-    hasReset = true;
+// export const resetBoxes = () => {
+//     if (!hasSwapped || hasReset) return; // 入れ替えが行われていない、またはリセット済みの場合は何もしない
+//     hasReset = true;
   
-    boxList.forEach((box, index) => {
-      const initialX = index * 150;
-      const initialY = 100;
-      gsap.to(box.element, { x: initialX, y: initialY, duration: 1 });
+//     boxList.forEach((box, index) => {
+//       const initialX = index * 150;
+//       const initialY = 100;
+//       gsap.to(box.element, { x: initialX, y: initialY, duration: 1 });
   
-      // 座標を初期状態に戻す
-      box.x = initialX;
-      box.y = initialY;
-    });
+//       // 座標を初期状態に戻す
+//       box.x = initialX;
+//       box.y = initialY;
+//     });
   
-    hasSwapped = false; // リセット後に再度入れ替えを可能にする
-  };
+//     hasSwapped = false; // リセット後に再度入れ替えを可能にする
+//   };
 
-export const createArrowElement = (id) => {
-  const arrow = document.createElement("span")
-  const box = document.getElementById()
-}
+// export const createArrowElement = (id) => {
+//   const arrow = document.createElement("span")
+//   arrow.className = "dli-arrow-down";
+
+
+//   const box = document.getElementById()
+  
+// }

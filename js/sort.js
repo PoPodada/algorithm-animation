@@ -30,6 +30,6 @@ export const quickSort = (list, startId, endId) => {
   };
 
   sort(list, startId, endId);
-  console.log(calculationSteps)
+  console.log(calculationSteps);
   return calculationSteps;
 };

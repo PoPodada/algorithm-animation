@@ -1,11 +1,10 @@
 import { quickSort } from "./js/sort.js";
-import { highlightBoxes, boxSwap, resetBoxes } from "./js/box.js";
+import { highlightBoxes, boxSwap } from "./js/box.js";
 
-let inputData = [9, 10, 6, 7, 8, 4];
-const boxObjectList = [];
-const boxesWrapper = document.getElementById("boxes-wrapper");
+let inputData = [900, 100, 600, 700, 800, 400];
 
 //入力されたデータをboxObjectListに格納する処理
+const boxObjectList = [];
 for (let i = 0; i < inputData.length; i++) {
   const x = i * 150;
   const y = 100;
@@ -13,6 +12,7 @@ for (let i = 0; i < inputData.length; i++) {
 }
 
 //boxObjectListからボックスを描画する処理
+const boxesWrapper = document.getElementById("boxes-wrapper");
 for (let i = 0; i < boxObjectList.length; i++) {
   const box = document.createElement("div");
   box.id = `box-${i}`;
@@ -25,13 +25,15 @@ for (let i = 0; i < boxObjectList.length; i++) {
 
 //事前にクイックソート
 const differencesList = quickSort(inputData, 0, boxObjectList.length - 1);
+
+//step0の時のボックスの色の変更
 let step = 0;
 highlightBoxes(differencesList[step].listDifference, "red");
 
 
 let pivotBox = document.getElementById(`box-${differencesList[step].pivotIndex}`)
+
 let tempPivotValue = pivotBox.textContent
-console.log(tempPivotValue)
 pivotBox.textContent = "pivot"
 
 document.getElementById("next-btn").addEventListener("click", () => {
@@ -48,8 +50,14 @@ document.getElementById("next-btn").addEventListener("click", () => {
     highlightBoxes(differencesList[step].listDifference, "red");
 
     pivotBox = document.getElementById(`box-${differencesList[step].pivotIndex}`) 
+
     pivotBox.textContent = "pivot"
     tempPivotValue = pivotBox.textContent
+    const arrow = document.createElement("span")
+    arrow.className = "dli-arrow-down";
+    pivotBox.appendChild(arrow)
+
+
   }
   boxSwap(boxObjectList, differencesList[step].listDifference[0], differencesList[step].listDifference[1]);
   // htmlのidを入れ替える
