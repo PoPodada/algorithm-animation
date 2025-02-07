@@ -38,7 +38,7 @@ function setupSortingVisualization() {
   document.getElementById("reset-btn").addEventListener("click", () => {
     console.log("reset");
     location.reload();
-  })
+  });
 }
 
 // ソートの初期化処理
@@ -53,15 +53,25 @@ function initializeSorting(inputField) {
   document.getElementById("boxes-wrapper").innerHTML = "";
 
   const rawInputValue = inputField.value.trim();
-  if (!rawInputValue) return;
+  console.log(rawInputValue);
+  if (!rawInputValue) {
+    alert("値を入力してください");
+    return;
+  }
 
-  disableButton(document.getElementById("generate-btn"));
-  enableButton(document.getElementById("swap-btn"));
   const parsedNumbers = rawInputValue
     .split(",")
     .map((num) => num.trim())
     .filter((num) => num !== "" && !isNaN(num))
     .map((num) => parseInt(num, 10));
+
+  if (parsedNumbers.length === 0) {
+    alert("値はカンマ刻みの数字で入力してください");
+    return;
+  }
+
+  disableButton(document.getElementById("generate-btn"));
+  enableButton(document.getElementById("swap-btn"));
 
   boxObjectList = parsedNumbers.map((num, i) => ({
     num,
@@ -91,6 +101,11 @@ function renderBoxes() {
 
 // ピボットを設定
 function setupPivotBox() {
+  if (differencesList.length === 0) {
+    changeMeter(100);
+    return;
+  }
+  console.log(differencesList);
   highlightBoxes(differencesList[step].listDifference, "red");
 
   pivotBox = document.getElementById(`box-${differencesList[step].pivotIndex}`);
@@ -137,7 +152,7 @@ function swapBoxes() {
   [box1.id, box2.id] = [box2.id, box1.id];
 }
 
-function changeMeter (value) {
+function changeMeter(value) {
   const meter = document.getElementById("meter-content");
   meter.style.width = `${Math.round(value)}%`;
 }

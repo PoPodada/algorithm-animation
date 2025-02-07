@@ -1,9 +1,9 @@
-function highlightBoxes (indices, color) {
+function highlightBoxes(indices, color) {
   indices.forEach((index) => {
     const box = document.getElementById(`box-${index}`);
     if (box) box.style.backgroundColor = color;
   });
-};
+}
 
 // ボックスを入れ替える関数
 const boxSwap = (boxList, index1, index2) => {

@@ -1,10 +1,10 @@
-function quickSort (list, startID, endID) {
+function quickSort(list, startID, endID) {
   const calculationSteps = [];
 
   const sort = (list, startID, endID) => {
-    if (startID >= endID) return; 
+    if (startID >= endID) return;
 
-    let pivotIndex = endID
+    let pivotIndex = endID;
     let pivotValue = list[endID];
     let left = startID;
     let right = endID - 1;
@@ -20,7 +20,7 @@ function quickSort (list, startID, endID) {
       calculationSteps.push({
         listDifference: [left, right],
         pivotIndex,
-        pivotValue
+        pivotValue,
       });
 
       left++;
@@ -32,7 +32,7 @@ function quickSort (list, startID, endID) {
     calculationSteps.push({
       listDifference: [left, endID],
       pivotValue,
-      pivotIndex
+      pivotIndex,
     });
 
     sort(list, startID, left - 1);
@@ -41,4 +41,4 @@ function quickSort (list, startID, endID) {
 
   sort(list, startID, endID);
   return calculationSteps;
-};
+}
