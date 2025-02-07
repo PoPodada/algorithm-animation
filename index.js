@@ -1,6 +1,8 @@
 window.addEventListener("load", () => {
   setupNavigationHighlight();
   setupSortingVisualization();
+  disableButton(document.getElementById("next-btn"));
+  disableButton(document.getElementById("swap-btn"));
 });
 
 // ナビゲーションのハイライト処理
@@ -29,7 +31,14 @@ function setupSortingVisualization() {
 
   document.getElementById("swap-btn").addEventListener("click", () => {
     swapBoxes();
+    enableButton(document.getElementById("next-btn"));
+    disableButton(document.getElementById("swap-btn"));
   });
+
+  document.getElementById("reset-btn").addEventListener("click", () => {
+    console.log("reset");
+    location.reload();
+  })
 }
 
 // ソートの初期化処理
@@ -46,6 +55,8 @@ function initializeSorting(inputField) {
   const rawInputValue = inputField.value.trim();
   if (!rawInputValue) return;
 
+  disableButton(document.getElementById("generate-btn"));
+  enableButton(document.getElementById("swap-btn"));
   const parsedNumbers = rawInputValue
     .split(",")
     .map((num) => num.trim())
@@ -60,6 +71,7 @@ function initializeSorting(inputField) {
 
   renderBoxes();
   differencesList = quickSort(parsedNumbers, 0, boxObjectList.length - 1);
+  console.log(differencesList);
   setupPivotBox();
 }
 
@@ -103,8 +115,9 @@ function processNextStep() {
   if (step >= differencesList.length) return;
 
   step++;
+  changeMeter((step / differencesList.length) * 100);
   if (step >= differencesList.length) {
-    alert("最後のステップです");
+    disableButton(document.getElementById("next-btn"));
     return;
   }
 
@@ -122,4 +135,23 @@ function swapBoxes() {
   let box2 = document.getElementById(`box-${index2}`);
 
   [box1.id, box2.id] = [box2.id, box1.id];
+}
+
+function changeMeter (value) {
+  const meter = document.getElementById("meter-content");
+  meter.style.width = `${Math.round(value)}%`;
+}
+
+// ボタンを無効にする
+function disableButton(button) {
+  button.disabled = true;
+  button.classList.add("disable-btn");
+  button.classList.remove("active-btn");
+}
+
+// ボタンを有効にする
+function enableButton(button) {
+  button.disabled = false;
+  button.classList.remove("disable-btn");
+  button.classList.add("active-btn");
 }

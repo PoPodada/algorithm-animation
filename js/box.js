@@ -1,4 +1,4 @@
-const highlightBoxes = (indices, color) => {
+function highlightBoxes (indices, color) {
   indices.forEach((index) => {
     const box = document.getElementById(`box-${index}`);
     if (box) box.style.backgroundColor = color;

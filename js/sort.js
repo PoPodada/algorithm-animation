@@ -1,32 +1,44 @@
-const quickSort = (list, startId, endId) => {
+function quickSort (list, startID, endID) {
   const calculationSteps = [];
-  const sort = (list, startId, endId) => {
-    const pivotIndex = Math.floor((startId + endId) / 2);
-    const pivot = list[pivotIndex];
-    let left = startId;
-    let right = endId;
 
-    while (left <= right) {
-      while (list[left] < pivot) left++;
-      while (list[right] > pivot) right--;
+  const sort = (list, startID, endID) => {
+    if (startID >= endID) return; 
 
-      if (left <= right) {
-        [list[left], list[right]] = [list[right], list[left]];
-        calculationSteps.push({
-          listDifference: [left, right],
-          pivotIndex,
-          pivotValue: pivot,
-        });
-        left++;
-        right--;
-      }
+    let pivotIndex = endID
+    let pivotValue = list[endID];
+    let left = startID;
+    let right = endID - 1;
+
+    while (true) {
+      while (list[left] < pivotValue) left++;
+      while (list[right] > pivotValue) right--;
+
+      if (left >= right) break;
+
+      [list[left], list[right]] = [list[right], list[left]];
+
+      calculationSteps.push({
+        listDifference: [left, right],
+        pivotIndex,
+        pivotValue
+      });
+
+      left++;
+      right--;
     }
 
-    if (startId < right) sort(list, startId, right);
-    if (left < endId) sort(list, left, endId);
+    [list[left], list[endID]] = [list[endID], list[left]];
+
+    calculationSteps.push({
+      listDifference: [left, endID],
+      pivotValue,
+      pivotIndex
+    });
+
+    sort(list, startID, left - 1);
+    sort(list, left + 1, endID);
   };
 
-  sort(list, startId, endId);
-  console.log(calculationSteps);
+  sort(list, startID, endID);
   return calculationSteps;
 };
